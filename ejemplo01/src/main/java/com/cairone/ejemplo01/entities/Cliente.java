@@ -1,4 +1,4 @@
-package com.cairone.ejemplo01.modelo;
+package com.cairone.ejemplo01.entities;
 
 import java.util.Date;
 

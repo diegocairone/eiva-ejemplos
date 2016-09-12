@@ -7,20 +7,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.cairone.ejemplo01.modelo.Persona;
-import com.cairone.ejemplo01.servicios.PersonaService;
+import com.cairone.ejemplo01.datasources.LocalidadesDataSources;
+import com.cairone.ejemplo01.datasources.ProvinciasDataSource;
+import com.cairone.ejemplo01.entities.LocalidadEntity;
+import com.cairone.ejemplo01.entities.ProvinciaEntity;
 
 @SpringBootApplication
 public class App implements CommandLineRunner
 {
 	@Autowired
-	private PersonaService personaService = null;
+	private ProvinciasDataSource provinciasDataSource = null;
+	
+	@Autowired
+	private LocalidadesDataSources localidadesDataSources = null;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		List<Persona> personas = personaService.getAll();
-		personas.forEach(persona -> System.out.println(persona));
+		//List<ProvinciaEntity> provincias = provinciasDataSource.getProvinciasCon("S");
+		//provincias.forEach(provincia -> System.out.println(provincia));
+		
+		ProvinciaEntity provinciaEntity = provinciasDataSource.buscarPorId(1);
+		
+		List<LocalidadEntity> localidades = localidadesDataSources.buscarPorProvincia(provinciaEntity);
+		localidades.forEach(localidad -> System.out.println(localidad));
+		
+		System.out.println("LISTO");
 	}
 	
     public static void main( String[] args )

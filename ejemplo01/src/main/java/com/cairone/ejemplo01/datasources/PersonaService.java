@@ -1,11 +1,11 @@
-package com.cairone.ejemplo01.servicios;
+package com.cairone.ejemplo01.datasources;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.cairone.ejemplo01.modelo.Persona;
+import com.cairone.ejemplo01.entities.Persona;
 
 @Component
 public class PersonaService {

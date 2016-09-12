@@ -1,4 +1,4 @@
-package com.cairone.ejemplo01.modelo;
+package com.cairone.ejemplo01.entities;
 
 public class Persona implements Comparable<Persona> {
 
