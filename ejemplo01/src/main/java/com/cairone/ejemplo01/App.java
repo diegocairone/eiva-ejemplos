@@ -1,38 +1,33 @@
 package com.cairone.ejemplo01;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.cairone.ejemplo01.datasources.LocalidadesDataSources;
+import com.cairone.ejemplo01.datasources.PaisesDataSource;
 import com.cairone.ejemplo01.datasources.ProvinciasDataSource;
-import com.cairone.ejemplo01.entities.LocalidadEntity;
+import com.cairone.ejemplo01.entities.PaisEntity;
 import com.cairone.ejemplo01.entities.ProvinciaEntity;
 
 @SpringBootApplication
 public class App implements CommandLineRunner
 {
-	@Autowired
-	private ProvinciasDataSource provinciasDataSource = null;
-	
-	@Autowired
-	private LocalidadesDataSources localidadesDataSources = null;
+	@Autowired private LocalidadesDataSources localidadesDataSources = null;
+	@Autowired private ProvinciasDataSource provinciasDataSource = null;
+	@Autowired private PaisesDataSource paisesDataSource = null;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//List<ProvinciaEntity> provincias = provinciasDataSource.getProvinciasCon("S");
-		//provincias.forEach(provincia -> System.out.println(provincia));
+		PaisEntity pais = paisesDataSource.buscarPorId(1); // ARGENTINA
+		ProvinciaEntity provincia = provinciasDataSource.buscarPorId(1); // SANTA FE
+		String cp = "6000";
+		String nombre = "CUALQUIER COSA";
 		
-		ProvinciaEntity provinciaEntity = provinciasDataSource.buscarPorId(1);
+		localidadesDataSources.nuevaLocalidad(pais, cp, nombre, provincia);
 		
-		List<LocalidadEntity> localidades = localidadesDataSources.buscarPorProvincia(provinciaEntity);
-		localidades.forEach(localidad -> System.out.println(localidad));
-		
-		System.out.println("LISTO");
 	}
 	
     public static void main( String[] args )

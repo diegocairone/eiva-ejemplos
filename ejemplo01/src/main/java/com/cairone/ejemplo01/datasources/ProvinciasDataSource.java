@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cairone.ejemplo01.entities.ProvinciaEntity;
 import com.cairone.ejemplo01.entities.QProvinciaEntity;
@@ -16,14 +17,17 @@ public class ProvinciasDataSource {
 	@Autowired
 	private ProvinciaRepository provinciaRepository = null;
 	
+	@Transactional(readOnly = true)
 	public List<ProvinciaEntity> getAll() {
 		return provinciaRepository.findAll();
 	}
 	
+	@Transactional(readOnly = true)
 	public ProvinciaEntity buscarPorId(Integer id) {
 		return provinciaRepository.findOne(id);
 	}
 	
+	@Transactional(readOnly = true)
 	public List<ProvinciaEntity> getProvinciasCon(String inicial) {
 		
 		if(inicial == null || inicial.trim().isEmpty()) {
