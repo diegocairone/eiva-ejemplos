@@ -1,22 +1,25 @@
 package com.cairone.ejemplo01.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity @Table(name = "Provincias")
-public class ProvinciaEntity {
+public class ProvinciaEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId private ProvinciaPKEntity pk = null;
 	
 	@OneToOne @JoinColumn(name = "id_pais", nullable = false, insertable = false, updatable = false)
 	private PaisEntity pais = null;
 	
-	@Id @Column(name = "id_provincia", nullable = false, insertable = false, updatable = false)
+	@Column(name = "id_provincia", nullable = false, insertable = false, updatable = false)
 	private Integer id = null;
 	
 	@Column(name = "nombre", length = 100, nullable = false)

@@ -10,14 +10,16 @@ import com.cairone.ejemplo01.entities.LocalidadEntity;
 import com.cairone.ejemplo01.entities.PaisEntity;
 import com.cairone.ejemplo01.entities.ProvinciaEntity;
 import com.cairone.ejemplo01.entities.QLocalidadEntity;
+import com.cairone.ejemplo01.exceptions.PaisException;
 import com.cairone.ejemplo01.repositories.LocalidadRepository;
+import com.cairone.ejemplo01.repositories.PaisRepository;
 import com.mysema.query.types.expr.BooleanExpression;
 
 @Component
 public class LocalidadesDataSources {
 
-	@Autowired
-	private LocalidadRepository localidadRepository = null;
+	@Autowired private LocalidadRepository localidadRepository = null;
+	@Autowired private PaisRepository paisRepository = null;
 	
 	@Transactional(readOnly = true)
 	public List<LocalidadEntity> buscarPorProvincia(ProvinciaEntity provinciaEntity) {
@@ -29,8 +31,19 @@ public class LocalidadesDataSources {
 		return (List<LocalidadEntity>) resultado;
 	}
 	
-	@Transactional
-	public void nuevaLocalidad(PaisEntity pais, String cp, String nombre, ProvinciaEntity provincia) {
+	@Transactional(rollbackFor = PaisException.class)
+	public void nuevaLocalidad(Integer paisID, String cp, String nombre, ProvinciaEntity provincia) throws Exception {
+
+		PaisEntity paisEntity = new PaisEntity();
+		paisEntity.setId(900);
+		paisEntity.setNombre("NO GUARDAR");
+		paisRepository.saveAndFlush(paisEntity);
+		
+		PaisEntity pais = paisRepository.findOne(paisID);
+		
+		if(pais == null) {
+			throw new PaisException(1000, String.format("NO SE ENCUENTRA UN PAIS CON ID %s", paisID));
+		}
 		
 		LocalidadEntity localidadEntity = new LocalidadEntity();
 		
@@ -38,10 +51,6 @@ public class LocalidadesDataSources {
 		localidadEntity.setCodigoPostal(cp);
 		localidadEntity.setNombre(nombre);
 		localidadEntity.setProvincia(provincia);
-		
-		localidadRepository.save(localidadEntity);
-		
-		localidadEntity.setNombre(nombre + " " + nombre);
 		
 		localidadRepository.save(localidadEntity);
 	}

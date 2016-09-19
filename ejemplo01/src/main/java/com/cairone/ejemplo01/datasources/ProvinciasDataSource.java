@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cairone.ejemplo01.entities.ProvinciaEntity;
+import com.cairone.ejemplo01.entities.ProvinciaPKEntity;
 import com.cairone.ejemplo01.entities.QProvinciaEntity;
 import com.cairone.ejemplo01.repositories.ProvinciaRepository;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -23,8 +24,8 @@ public class ProvinciasDataSource {
 	}
 	
 	@Transactional(readOnly = true)
-	public ProvinciaEntity buscarPorId(Integer id) {
-		return provinciaRepository.findOne(id);
+	public ProvinciaEntity buscarPorId(Integer paisId, Integer id) {
+		return provinciaRepository.findOne(new ProvinciaPKEntity(paisId, id));
 	}
 	
 	@Transactional(readOnly = true)

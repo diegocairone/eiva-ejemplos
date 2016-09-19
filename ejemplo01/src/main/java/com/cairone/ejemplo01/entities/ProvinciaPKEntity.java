@@ -1,11 +1,15 @@
 package com.cairone.ejemplo01.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ProvinciaPKEntity {
+public class ProvinciaPKEntity implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "id_pais", nullable=false) private Integer paisID = null;
 	@Column(name = "id_provincia", nullable=false) private Integer provinciaID = null;
 	
