@@ -1,19 +1,17 @@
 package com.cairone.ejemplo01;
 
-import java.sql.SQLException;
-
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import com.cairone.ejemplo01.datasources.LocalidadesDataSources;
 import com.cairone.ejemplo01.datasources.PaisesDataSource;
+import com.cairone.ejemplo01.datasources.PersonaRelDataSource;
 import com.cairone.ejemplo01.datasources.ProvinciasDataSource;
-import com.cairone.ejemplo01.entities.ProvinciaEntity;
-import com.cairone.ejemplo01.exceptions.PaisException;
+import com.cairone.ejemplo01.datasources.UsuarioDataSource;
+import com.cairone.ejemplo01.entities.PersonaRelEnity;
+import com.cairone.ejemplo01.entities.UsuarioEntity;
 
 @SpringBootApplication
 public class App implements CommandLineRunner
@@ -21,7 +19,24 @@ public class App implements CommandLineRunner
 	@Autowired private LocalidadesDataSources localidadesDataSources = null;
 	@Autowired private ProvinciasDataSource provinciasDataSource = null;
 	@Autowired private PaisesDataSource paisesDataSource = null;
+	@Autowired private PersonaRelDataSource personaRelDataSource = null;
+	@Autowired private UsuarioDataSource usuarioDataSource = null;
 	
+	@Override
+	public void run(String... args) throws Exception {
+		/*
+		Iterable<PersonaRelEnity> personaRelEnities = personaRelDataSource.buscar();
+		personaRelEnities.forEach(personaRelEnity -> {
+			System.out.println(personaRelEnity.getPersona());
+		});
+		*/
+		Iterable<UsuarioEntity> usuarioEntities = usuarioDataSource.buscar();
+		usuarioEntities.forEach(usuarioEntity -> {
+			System.out.println(usuarioEntity.getNombre());
+		});
+		
+	}
+	/*
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -53,7 +68,7 @@ public class App implements CommandLineRunner
 			}
 		}
 	}
-	
+	*/
     public static void main( String[] args )
     {
     	SpringApplication.run(App.class, args);

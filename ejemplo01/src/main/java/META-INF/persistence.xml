@@ -7,5 +7,9 @@
 		<class>com.cairone.ejemplo01.entities.ProvinciaEntity</class>
 		<class>com.cairone.ejemplo01.entities.ProvinciaPKEntity</class>
 		<class>com.cairone.ejemplo01.entities.PaisEntity</class>
+		<class>com.cairone.ejemplo01.entities.PersonaRelEnity</class>
+		<class>com.cairone.ejemplo01.entities.PersonaRelPKEntity</class>
+		<class>com.cairone.ejemplo01.entities.UsuarioEntity</class>
+		<class>com.cairone.ejemplo01.entities.UsuarioPKEntity</class>
 	</persistence-unit>
 </persistence>
