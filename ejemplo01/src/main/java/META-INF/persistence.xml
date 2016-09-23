@@ -11,5 +11,7 @@
 		<class>com.cairone.ejemplo01.entities.PersonaRelPKEntity</class>
 		<class>com.cairone.ejemplo01.entities.UsuarioEntity</class>
 		<class>com.cairone.ejemplo01.entities.UsuarioPKEntity</class>
+		<class>com.cairone.ejemplo01.entities.PersonaEntity</class>
+		<class>com.cairone.ejemplo01.entities.ClienteEntity</class>
 	</persistence-unit>
 </persistence>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+		<connectionSource
+			class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+			<driverClass>net.sourceforge.jtds.jdbc.Driver</driverClass>
+			<url>jdbc:jtds:sqlserver://localhost:1433/CHARLAS_JAVA</url>
+			<user>sa</user>
+			<password>rv760</password>
+		</connectionSource>
+	</appender>
+    <logger name="com.cairone.ejemplo01" level="DEBUG" additivity="false">
+        <appender-ref ref="DB"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+ </configuration>

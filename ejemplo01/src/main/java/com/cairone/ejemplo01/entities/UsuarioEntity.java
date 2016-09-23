@@ -2,13 +2,12 @@ package com.cairone.ejemplo01.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity @Table(name="usuarios")
@@ -16,14 +15,15 @@ public class UsuarioEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId @AttributeOverrides( {
-        @AttributeOverride(name="perTipoUsu", column=@Column(name="per_tipo_usu", nullable=false) ), 
-        @AttributeOverride(name="perCodUsu", column=@Column(name="per_cod_usu", nullable=false) ) } )
+	@EmbeddedId
 	private UsuarioPKEntity pk = null;
 
-	@OneToOne @PrimaryKeyJoinColumn
+	@OneToOne @MapsId("personaRelPKEntity") @JoinColumns({
+		@JoinColumn(name = "per_tipo_usu", referencedColumnName = "per_tipo", insertable = false, updatable = false),
+		@JoinColumn(name = "per_cod_usu", referencedColumnName = "per_cod", insertable = false, updatable = false)
+	})
 	private PersonaRelEnity personaRel = null;
-	
+
 	private String nombre;
 
 	public UsuarioEntity() {
@@ -72,5 +72,5 @@ public class UsuarioEntity implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

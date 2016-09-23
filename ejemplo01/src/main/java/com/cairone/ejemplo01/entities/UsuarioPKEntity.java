@@ -10,13 +10,17 @@ public class UsuarioPKEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="per_tipo_usu")
+	private PersonaRelPKEntity personaRelPKEntity = null;
+	
+	@Column(name="per_tipo_usu", insertable = false, updatable = false)
 	private int perTipoUsu;
 
-	@Column(name="per_cod_usu")
+	@Column(name="per_cod_usu", insertable = false, updatable = false)
 	private int perCodUsu;
 
-	public UsuarioPKEntity() {}
+	public UsuarioPKEntity() {
+		this.personaRelPKEntity = new PersonaRelPKEntity();
+	}
 
 	public int getPerTipoUsu() {
 		return perTipoUsu;
@@ -24,6 +28,7 @@ public class UsuarioPKEntity implements Serializable {
 
 	public void setPerTipoUsu(int perTipoUsu) {
 		this.perTipoUsu = perTipoUsu;
+		this.personaRelPKEntity.setPerTipo(perTipoUsu);
 	}
 
 	public int getPerCodUsu() {
@@ -32,6 +37,7 @@ public class UsuarioPKEntity implements Serializable {
 
 	public void setPerCodUsu(int perCodUsu) {
 		this.perCodUsu = perCodUsu;
+		this.personaRelPKEntity.setPerCod(perCodUsu);
 	}
 
 	@Override

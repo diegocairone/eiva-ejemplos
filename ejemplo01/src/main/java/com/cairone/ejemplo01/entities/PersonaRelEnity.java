@@ -1,7 +1,10 @@
 package com.cairone.ejemplo01.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @Entity @Table(name="persona_rel")
@@ -10,7 +13,7 @@ public class PersonaRelEnity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private PersonaRelPKEntity id;
+	private PersonaRelPKEntity id = null;
 
 	private String persona;
 
