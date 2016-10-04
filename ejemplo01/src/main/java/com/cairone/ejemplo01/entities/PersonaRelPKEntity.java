@@ -8,24 +8,24 @@ public class PersonaRelPKEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="per_tipo")
-	private int perTipo;
+	@Column(name="per_tipo", nullable=false)
+	private Integer perTipo;
 
-	@Column(name="per_cod")
-	private int perCod;
+	@Column(name="per_cod", nullable=false)
+	private Integer perCod;
 
 	public PersonaRelPKEntity() {
 	}
 	public int getPerTipo() {
 		return this.perTipo;
 	}
-	public void setPerTipo(int perTipo) {
+	public void setPerTipo(Integer perTipo) {
 		this.perTipo = perTipo;
 	}
 	public int getPerCod() {
 		return this.perCod;
 	}
-	public void setPerCod(int perCod) {
+	public void setPerCod(Integer perCod) {
 		this.perCod = perCod;
 	}
 

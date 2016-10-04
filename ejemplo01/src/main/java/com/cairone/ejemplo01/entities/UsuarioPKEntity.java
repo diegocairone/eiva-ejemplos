@@ -2,8 +2,8 @@ package com.cairone.ejemplo01.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 @Embeddable
 public class UsuarioPKEntity implements Serializable {
@@ -11,12 +11,12 @@ public class UsuarioPKEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private PersonaRelPKEntity personaRelPKEntity = null;
-	
-	@Column(name="per_tipo_usu", insertable = false, updatable = false)
-	private int perTipoUsu;
 
-	@Column(name="per_cod_usu", insertable = false, updatable = false)
-	private int perCodUsu;
+	@Transient
+	private Integer perTipoUsu;
+
+	@Transient
+	private Integer perCodUsu;
 
 	public UsuarioPKEntity() {
 		this.personaRelPKEntity = new PersonaRelPKEntity();
@@ -26,7 +26,7 @@ public class UsuarioPKEntity implements Serializable {
 		return perTipoUsu;
 	}
 
-	public void setPerTipoUsu(int perTipoUsu) {
+	public void setPerTipoUsu(Integer perTipoUsu) {
 		this.perTipoUsu = perTipoUsu;
 		this.personaRelPKEntity.setPerTipo(perTipoUsu);
 	}
@@ -35,20 +35,28 @@ public class UsuarioPKEntity implements Serializable {
 		return perCodUsu;
 	}
 
-	public void setPerCodUsu(int perCodUsu) {
+	public void setPerCodUsu(Integer perCodUsu) {
 		this.perCodUsu = perCodUsu;
 		this.personaRelPKEntity.setPerCod(perCodUsu);
 	}
 
+	public PersonaRelPKEntity getPersonaRelPKEntity() {
+		return personaRelPKEntity;
+	}
+
+	public void setPersonaRelPKEntity(PersonaRelPKEntity personaRelPKEntity) {
+		this.personaRelPKEntity = personaRelPKEntity;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + perCodUsu;
-		result = prime * result + perTipoUsu;
+		result = prime
+				* result
+				+ ((personaRelPKEntity == null) ? 0 : personaRelPKEntity
+						.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,11 +66,12 @@ public class UsuarioPKEntity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UsuarioPKEntity other = (UsuarioPKEntity) obj;
-		if (perCodUsu != other.perCodUsu)
-			return false;
-		if (perTipoUsu != other.perTipoUsu)
+		if (personaRelPKEntity == null) {
+			if (other.personaRelPKEntity != null)
+				return false;
+		} else if (!personaRelPKEntity.equals(other.personaRelPKEntity))
 			return false;
 		return true;
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package com.cairone.ejemplo01.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,13 +13,13 @@ public class PersonaRelEnity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
+	@EmbeddedId 
 	private PersonaRelPKEntity id = null;
 
+	@Column(name = "persona", length = 50)
 	private String persona;
 
-	public PersonaRelEnity() {
-	}
+	public PersonaRelEnity() {}
 
 	public PersonaRelPKEntity getId() {
 		return this.id;

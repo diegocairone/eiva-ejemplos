@@ -6,8 +6,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity @Table(name="usuarios")
@@ -15,12 +15,18 @@ public class UsuarioEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
+	@EmbeddedId /*@AttributeOverrides( {
+        @AttributeOverride(name="perTipoUsu", column=@Column(name="per_tipo", nullable=false, insertable = false, updatable = false) ), 
+        @AttributeOverride(name="perCodUsu", column=@Column(name="per_cod", nullable=false, insertable = false, updatable = false) ) } )*/
 	private UsuarioPKEntity pk = null;
-
-	@OneToOne @MapsId("personaRelPKEntity") @JoinColumns({
+/*
+	@ManyToOne @MapsId("personaRelPKEntity") @JoinColumns({
 		@JoinColumn(name = "per_tipo_usu", referencedColumnName = "per_tipo", insertable = false, updatable = false),
 		@JoinColumn(name = "per_cod_usu", referencedColumnName = "per_cod", insertable = false, updatable = false)
+	})*/
+	@ManyToOne @MapsId("personaRelPKEntity") @JoinColumns({
+		@JoinColumn(name = "per_tipo_usu", referencedColumnName = "per_tipo"),
+		@JoinColumn(name = "per_cod_usu", referencedColumnName = "per_cod")
 	})
 	private PersonaRelEnity personaRel = null;
 
@@ -36,8 +42,6 @@ public class UsuarioEntity implements Serializable {
 
 	public void setPersonaRel(PersonaRelEnity personaRel) {
 		this.personaRel = personaRel;
-		this.pk.setPerCodUsu(personaRel.getId().getPerCod());
-		this.pk.setPerTipoUsu(personaRel.getId().getPerTipo());
 	}
 
 	public String getNombre() {
